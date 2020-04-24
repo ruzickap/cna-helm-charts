@@ -1,0 +1,13 @@
+global:
+  email: my_email@mylabs.dev
+  dnsname: mylabs.dev
+  region: us-east-1
+  access_key_id: AxxxxxxxxxxxxxxxxxxF
+  secret_access_key: Gxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/
+  letsencrypt_environment: staging
+
+cert-manager:
+  cna-manager:
+    prometheus:
+      servicemonitor:
+        enabled: true

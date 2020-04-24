@@ -1,0 +1,42 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: letsencrypt-staging-dns
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: {{ $.Values.global.email }}
+    privateKeySecretRef:
+      name: letsencrypt-staging-dns
+    solvers:
+      - selector:
+          dnsZones:
+            - {{ $.Values.global.dnsname }}
+        dns01:
+          route53:
+            region: {{ $.Values.global.region }}
+            accessKeyID: {{ $.Values.global.access_key_id }}
+            secretAccessKeySecretRef:
+              name: route53-credentials
+              key: secret-access-key
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: letsencrypt-production-dns
+spec:
+  acme:
+    email: {{ $.Values.global.email }}
+    privateKeySecretRef:
+      name: letsencrypt-production-dns
+    solvers:
+      - selector:
+          dnsZones:
+            - {{ $.Values.global.dnsname }}
+        dns01:
+          route53:
+            region: {{ $.Values.global.region }}
+            accessKeyID: {{ $.Values.global.access_key_id }}
+            secretAccessKeySecretRef:
+              name: route53-credentials
+              key: secret-access-key

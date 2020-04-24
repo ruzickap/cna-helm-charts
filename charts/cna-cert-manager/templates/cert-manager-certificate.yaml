@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: ingress-certificate
+spec:
+  secretName: ingress-certificate
+  issuerRef:
+    name: letsencrypt-{{ $.Values.global.letsencrypt_environment }}-dns
+    kind: Issuer
+  dnsNames:
+    - "*.{{ $.Values.global.dnsname }}"
+    - {{ $.Values.global.dnsname }}
